@@ -136,3 +136,80 @@ display: inline-block;
   max-width: 420px;
   margin: 0 auto;
 }
+
+/* ===== Mobile (iPhone) ===== */
+@media (max-width: 480px) {
+  /* iOS Safari: 100vh can be buggy with address bar */
+  body {
+    min-height: 100svh;
+    height: auto;
+    padding: 12px;
+    background-size: 240px; /* optional: makes hearts less huge */
+  }
+
+  /* Envelope screen */
+  #envelope {
+    width: 160px;
+  }
+
+  /* Letter container and window */
+  #letter-container {
+    padding: 10px;
+  }
+
+  .letter-window {
+    width: 100%;
+    max-width: 380px;
+    aspect-ratio: auto;        /* allow it to grow vertically */
+    height: auto;
+    padding: 0 18px 18px 18px; /* safer on small screens */
+    padding-top: 120px;        /* reduce the huge top gap */
+    background-size: contain;
+    transform: scale(1);       /* avoid initial “too big” on mobile */
+    gap: 10px;                 /* a bit more breathing room */
+  }
+
+  h1 {
+    font-size: 22px;
+  }
+
+  /* your global p=40px is too big on mobile; override inside the window */
+  .letter-window p {
+    font-size: 22px;
+    line-height: 1.2;
+    margin: 6px 0;
+  }
+
+  /* Cat image scales down */
+  .cat {
+    width: 180px;
+    margin: 6px 0;
+  }
+
+  .letter-window.final .cat {
+    width: 150px;
+  }
+
+  /* Buttons: bigger tap targets + wrap if needed */
+  .buttons {
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    width: 110px;
+  }
+
+  .yes-btn,
+  .no-btn {
+    width: 110px;
+  }
+
+  /* Final message box */
+  .final-text {
+    font-size: 18px;
+    line-height: 1.45;
+    padding: 10px 14px;
+    max-width: 320px;
+  }
+}
