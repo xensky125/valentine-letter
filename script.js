@@ -22,18 +22,48 @@ envelope.addEventListener("click", () => {
 
 // Logic to move the NO btn
 
-noBtn.addEventListener("mouseover", () => {
-    const min = 200;
-    const max = 200;
+function moveNoButton() {
+  const padding = 12; // keep away from edges
 
-    const distance = Math.random() * (max - min) + min;
-    const angle = Math.random() * Math.PI * 2;
+  // Temporarily reset transform to measure current position correctly
+  const prevTransform = noBtn.style.transform;
+  noBtn.style.transform = "translate(0px, 0px)";
+  const rect = noBtn.getBoundingClientRect();
+  noBtn.style.transform = prevTransform;
 
-    const moveX = Math.cos(angle) * distance;
-    const moveY = Math.sin(angle) * distance;
+  // How far we are allowed to move without leaving the viewport
+  const minX = -rect.left + padding;
+  const maxX = (window.innerWidth - rect.right) - padding;
+  const minY = -rect.top + padding;
+  const maxY = (window.innerHeight - rect.bottom) - padding;
 
-    noBtn.style.transition = "transform 0.3s ease";
-    noBtn.style.transform = `translate(${moveX}px, ${moveY}px)`;
+  // If space is tight (small screens), avoid NaN / weirdness
+  const safeMinX = Math.min(minX, maxX);
+  const safeMaxX = Math.max(minX, maxX);
+  const safeMinY = Math.min(minY, maxY);
+  const safeMaxY = Math.max(minY, maxY);
+
+  // Random translate within allowed range
+  const moveX = Math.floor(Math.random() * (safeMaxX - safeMinX + 1)) + safeMinX;
+  const moveY = Math.floor(Math.random() * (safeMaxY - safeMinY + 1)) + safeMinY;
+
+  noBtn.style.transition = "transform 0.25s ease";
+  noBtn.style.transform = `translate(${moveX}px, ${moveY}px)`;
+}
+
+// Desktop hover
+noBtn.addEventListener("mouseover", moveNoButton);
+
+// Mobile: touch
+noBtn.addEventListener("touchstart", (e) => {
+  e.preventDefault(); // stops “tap” selecting/dragging images
+  moveNoButton();
+}, { passive: false });
+
+// Optional: also move on click (works everywhere)
+noBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  moveNoButton();
 });
 
 // Logic to make YES btn to grow
