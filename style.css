@@ -238,3 +238,53 @@ display: inline-block;
     overflow-wrap: break-word;
   }
 }
+
+/* ===== FIX mobile window layout properly ===== */
+@media (max-width: 480px) {
+
+  .letter-window {
+    display: grid;
+    grid-template-rows:
+      40px      /* title bar */
+      auto      /* hearts row */
+      1fr       /* cat */
+      auto      /* buttons OR final text */
+    ;
+    align-items: center;
+    justify-items: center;
+
+    width: 92vw;
+    max-width: 380px;
+    height: auto;
+
+    padding: 90px 16px 16px 16px; /* aligns with window image */
+    background-size: 100% auto;
+    background-position: top center;
+    gap: 8px;
+  }
+
+  #letter-title {
+    font-size: 22px;
+    margin: 0;
+  }
+
+  .cat {
+    width: 160px;
+  }
+
+  .letter-window.final .cat {
+    width: 140px;
+  }
+
+  .buttons {
+    margin: 0;
+  }
+
+  #final-text {
+    max-width: 280px;
+    font-size: 16px;
+    line-height: 1.4;
+    text-align: center;
+    padding: 8px 10px;
+  }
+}
