@@ -138,78 +138,103 @@ display: inline-block;
 }
 
 /* ===== Mobile (iPhone) ===== */
+/* ===== iPhone / small screens: make it look cute + aligned ===== */
 @media (max-width: 480px) {
-  /* iOS Safari: 100vh can be buggy with address bar */
   body {
+    margin: 0;
     min-height: 100svh;
     height: auto;
-    padding: 12px;
-    background-size: 240px; /* optional: makes hearts less huge */
+    padding: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: 220px;
   }
 
   /* Envelope screen */
   #envelope {
-    width: 160px;
+    width: 150px;
   }
 
-  /* Letter container and window */
+  /* Letter screen wrapper */
   #letter-container {
-    padding: 10px;
+    padding: 0;
   }
 
+  /* Main window: stop forcing 3/2 and huge top padding */
   .letter-window {
-    width: 100%;
+    width: 92vw;
     max-width: 380px;
-    aspect-ratio: auto;        /* allow it to grow vertically */
     height: auto;
-    padding: 0 18px 18px 18px; /* safer on small screens */
-    padding-top: 120px;        /* reduce the huge top gap */
-    background-size: contain;
-    transform: scale(1);       /* avoid initial “too big” on mobile */
-    gap: 10px;                 /* a bit more breathing room */
+    aspect-ratio: auto;
+
+    /* This fixes the "everything sits too low" issue */
+    padding-top: 105px;
+
+    /* Keep content comfortably inside */
+    padding-left: 18px;
+    padding-right: 18px;
+    padding-bottom: 18px;
+
+    /* No extra scaling on mobile */
+    transform: scale(1);
+
+    /* Better spacing */
+    gap: 10px;
+
+    /* Make the window background fit nicely */
+    background-size: 100% auto;
+    background-position: center top;
   }
 
   h1 {
     font-size: 22px;
+    margin: 0;
   }
 
-  /* your global p=40px is too big on mobile; override inside the window */
+  /* Your global p { font-size: 40px } breaks mobile.
+     Override ONLY inside the window. */
   .letter-window p {
-    font-size: 22px;
+    font-size: 20px;
     line-height: 1.2;
     margin: 6px 0;
   }
 
-  /* Cat image scales down */
+  /* Cat */
   .cat {
-    width: 180px;
+    width: 170px;
     margin: 6px 0;
   }
-
   .letter-window.final .cat {
     width: 150px;
   }
 
-  /* Buttons: bigger tap targets + wrap if needed */
+  /* Buttons: keep them inside, aligned, thumb-friendly */
   .buttons {
-    gap: 16px;
-    flex-wrap: wrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: nowrap;
+    margin-top: 6px;
   }
 
-  .btn {
-    width: 110px;
-  }
-
+  .btn,
   .yes-btn,
   .no-btn {
-    width: 110px;
+    width: 105px;
+    height: auto;
   }
 
-  /* Final message box */
-  .final-text {
-    font-size: 18px;
+  /* Final message: make it a neat “card”, not a blob */
+  #final-text.final-text {
+    max-width: 290px;
+    font-size: 16px;
     line-height: 1.45;
-    padding: 10px 14px;
-    max-width: 320px;
+    padding: 10px 12px;
+    margin-top: 8px;
+    display: inline-block;
+    word-break: normal;
+    overflow-wrap: break-word;
   }
 }
